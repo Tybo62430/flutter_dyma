@@ -1,9 +1,12 @@
-import 'package:dyma_trip/models/city_model.dart';
+import 'package:dyma_trip/widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:dyma_trip/models/city_model.dart';
 
 import 'widgets/city_card.dart';
 
 class HomeView extends StatefulWidget {
+  static const String routeName = '/';
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -17,12 +20,13 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    cities.map((city) => print(city));
+
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.home),
         title: const Text('Dyma Trip'),
-        actions: const <Widget>[Icon(Icons.more_vert)],
       ),
+      drawer: const DymaDrawer(),
       body: Container(
         padding: const EdgeInsets.all(10),
         child: Column(

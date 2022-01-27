@@ -1,3 +1,4 @@
+import 'package:dyma_trip/views/city/city_view.dart';
 import 'package:flutter/material.dart';
 import 'package:dyma_trip/models/city_model.dart';
 
@@ -18,7 +19,9 @@ class CityCard extends StatelessWidget {
               Ink.image(
                 image: AssetImage(city.image),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/city', arguments: city);
+                  },
                 ),
                 fit: BoxFit.cover,
               ),

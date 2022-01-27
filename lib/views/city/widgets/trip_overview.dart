@@ -5,12 +5,14 @@ import 'package:intl/intl.dart';
 class TripOverview extends StatelessWidget {
   final VoidCallback setDate;
   final Trip trip;
+  final String cityName;
+  final double amount;
 
-  double get amount {
-    return 0;
-  }
-
-  TripOverview({required this.setDate, required this.trip});
+  TripOverview(
+      {required this.setDate,
+      required this.trip,
+      required this.cityName,
+      required this.amount});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,9 @@ class TripOverview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Paris',
-            style: TextStyle(
+          Text(
+            cityName,
+            style: const TextStyle(
               fontSize: 25,
               decoration: TextDecoration.underline,
             ),

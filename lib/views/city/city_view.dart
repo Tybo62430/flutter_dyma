@@ -1,5 +1,8 @@
+import 'package:dyma_trip/views/home/home_view.dart';
+import 'package:dyma_trip/widgets/dyma_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:dyma_trip/models/activity_model.dart';
+import 'package:dyma_trip/models/city_model.dart';
 import 'package:dyma_trip/models/trip_model.dart';
 import 'widgets/activity_list.dart';
 import 'widgets/trip_activity_list.dart';
@@ -7,22 +10,11 @@ import 'widgets/trip_overview.dart';
 import '../../datas/data.dart' as data;
 
 class CityView extends StatefulWidget {
+  static const String routeName = '/city';
   final List<Activity> activities = data.activities;
+  final City city;
 
-  showContext({required BuildContext context, required List<Widget> children}) {
-    final orientation = MediaQuery.of(context).orientation;
-
-    if (orientation == Orientation.landscape) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: children,
-      );
-    } else {
-      return Column(
-        children: children,
-      );
-    }
-  }
+  CityView({Key? key, required this.city}) : super(key: key);
 
   @override
   _CityViewState createState() => _CityViewState();
@@ -81,23 +73,67 @@ class _CityViewState extends State<CityView> {
     });
   }
 
+  double get amount {
+    return mytrip.activities.fold(0.00, (previousValue, element) {
+      var activity =
+          widget.activities.firstWhere((activity) => activity.id == element);
+      return previousValue + activity.price;
+    });
+  }
+
+  void saveTrip() async {
+    final result = await showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text("Voulez vous savegarder ?"),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  child: const Text('Annuler'),
+                  onPressed: () {
+                    Navigator.pop(context, 'cancel');
+                  },
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                RaisedButton(
+                  child: const Text(
+                    'Sauvegarder',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    Navigator.pop(context, 'save');
+                  },
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+    Navigator.pushNamed(context, HomeView.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.chevron_left),
         title: const Text('Organisation du voyage'),
-        actions: const <Widget>[
-          Icon(Icons.more_vert),
-        ],
       ),
+      drawer: const DymaDrawer(),
       body: Container(
-        child: widget.showContext(
-          context: context,
+        child: Column(
           children: <Widget>[
             TripOverview(
               trip: mytrip,
               setDate: setDate,
+              cityName: widget.city.name,
+              amount: amount,
             ),
             Expanded(
               child: index == 0
@@ -114,6 +150,8 @@ class _CityViewState extends State<CityView> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.forward), onPressed: saveTrip),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         items: const [

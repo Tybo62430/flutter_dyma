@@ -7,20 +7,18 @@ import 'widgets/city_card.dart';
 class HomeView extends StatefulWidget {
   static const String routeName = '/';
 
+  late List<City> cities;
+
+  HomeView({required this.cities});
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<City> cities = [
-    City(name: 'Paris', image: 'assets/images/paris.jpeg'),
-    City(name: 'Lyon', image: 'assets/images/lyon.jpeg'),
-    City(name: 'Nice', image: 'assets/images/nice.jpeg'),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    cities.map((city) => print(city));
+    widget.cities.map((city) => print(city));
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
         padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: cities.map((city) => CityCard(city: city)).toList(),
+          children: widget.cities.map((city) => CityCard(city: city)).toList(),
         ),
       ),
     );

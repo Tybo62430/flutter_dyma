@@ -18,7 +18,7 @@ import '../datas/data.dart' as data;
 // }
 
 class Data extends InheritedWidget {
-  final List<Activity> activities = data.activities;
+  // final List<Activity> activities = data.cities;
 
   Data({Key? key, required Widget child}) : super(key: key, child: child);
 

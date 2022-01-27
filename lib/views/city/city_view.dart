@@ -7,14 +7,18 @@ import 'package:dyma_trip/models/trip_model.dart';
 import 'widgets/activity_list.dart';
 import 'widgets/trip_activity_list.dart';
 import 'widgets/trip_overview.dart';
-import '../../datas/data.dart' as data;
 
 class CityView extends StatefulWidget {
   static const String routeName = '/city';
-  final List<Activity> activities = data.activities;
   final City city;
+  final Function addTrip;
 
-  CityView({Key? key, required this.city}) : super(key: key);
+  List<Activity> get activities {
+    return city.activities;
+  }
+
+  const CityView({Key? key, required this.city, required this.addTrip})
+      : super(key: key);
 
   @override
   _CityViewState createState() => _CityViewState();
@@ -43,7 +47,7 @@ class _CityViewState extends State<CityView> {
       context: context,
       firstDate: DateTime.now(),
       initialDate: DateTime.now().add(const Duration(days: 1)),
-      lastDate: DateTime(2022),
+      lastDate: DateTime(2023),
     ).then((newDate) {
       if (newDate != null) {
         setState(() {
@@ -116,7 +120,10 @@ class _CityViewState extends State<CityView> {
         );
       },
     );
-    Navigator.pushNamed(context, HomeView.routeName);
+    if (result == 'save') {
+      widget.addTrip(mytrip);
+      Navigator.pushNamed(context, HomeView.routeName);
+    }
   }
 
   @override

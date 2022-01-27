@@ -27,7 +27,7 @@ class ActivityCard extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
                   Expanded(
@@ -36,7 +36,7 @@ class ActivityCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         if (isSelected)
-                          Icon(
+                          const Icon(
                             Icons.check,
                             size: 40,
                             color: Colors.white,
@@ -50,7 +50,7 @@ class ActivityCard extends StatelessWidget {
                         child: FittedBox(
                           child: Text(
                             activity.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                             ),

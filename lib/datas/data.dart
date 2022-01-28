@@ -1,5 +1,6 @@
-import '../models/activity_model.dart';
-import '../models/city_model.dart';
+import 'package:dyma_trip/models/activity_model.dart';
+import 'package:dyma_trip/models/city_model.dart';
+import 'package:dyma_trip/models/trip_model.dart';
 
 List<City> cities = [
   City(
@@ -8,14 +9,14 @@ List<City> cities = [
     activities: [
       Activity(
         image: 'assets/images/activities/louvre.jpeg',
-        name: 'Musée du Louvre',
+        name: 'Louvre',
         id: 'a1',
         city: 'Paris',
         price: 12.00,
       ),
       Activity(
         image: 'assets/images/activities/chaumont.jpeg',
-        name: 'Buttes-Chaumont',
+        name: 'Chaumont',
         id: 'a2',
         city: 'Paris',
         price: 0.00,
@@ -29,7 +30,7 @@ List<City> cities = [
       ),
       Activity(
         image: 'assets/images/activities/defense.jpeg',
-        name: 'La Défense',
+        name: 'La défense',
         id: 'a4',
         city: 'Paris',
         price: 0.00,
@@ -43,7 +44,7 @@ List<City> cities = [
       ),
       Activity(
         image: 'assets/images/activities/luxembourg.jpeg',
-        name: 'Jardin du Luxembourg',
+        name: 'Jardin Luxembourg',
         id: 'a6',
         city: 'Paris',
         price: 0.00,
@@ -139,4 +140,42 @@ List<City> cities = [
       ),
     ],
   ),
+];
+
+List<Trip> trips = [
+  Trip(
+    activities: [
+      Activity(
+        image: 'assets/images/activities/louvre.jpeg',
+        name: 'Louvre',
+        id: 'a1',
+        city: 'Paris',
+        price: 12.00,
+      ),
+      Activity(
+          image: 'assets/images/activities/chaumont.jpeg',
+          name: 'Chaumont',
+          id: 'a2',
+          city: 'Paris',
+          price: 0.00,
+          status: ActivityStatus.done),
+      Activity(
+        image: 'assets/images/activities/dame.jpeg',
+        name: 'Notre-Dame',
+        id: 'a3',
+        city: 'Paris',
+        price: 0.00,
+      ),
+    ],
+    city: 'Paris',
+    date: DateTime.now().add(Duration(days: 1)),
+  ),
+  Trip(
+      activities: [],
+      city: 'Lyon',
+      date: DateTime.now().add(Duration(days: 2))),
+  Trip(
+      activities: [],
+      city: 'Nice',
+      date: DateTime.now().subtract(Duration(days: 1))),
 ];
